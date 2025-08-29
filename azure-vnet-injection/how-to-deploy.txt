@@ -1,0 +1,13 @@
+# Install
+
+Terraform CLI
+Azure CLI
+
+# Log into Azure
+
+# CLI commands
+az login
+	- select your (dev - qa - prod) subscription
+
+# Fill the values on terraform.tfvars
+terraform init
