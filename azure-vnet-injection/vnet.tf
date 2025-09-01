@@ -10,7 +10,7 @@ resource "azurerm_subnet" "public" {
   name                 = "${local.prefix}-public"
   resource_group_name  = azurerm_resource_group.this.name
   virtual_network_name = azurerm_virtual_network.this.name
-  address_prefixes     = [cidrsubnet(var.cidr, 6, 0)]
+  address_prefixes     = [cidrsubnet(var.cidr, 2, 0)]
 
   delegation {
     name = "databricks"
@@ -47,15 +47,12 @@ resource "azurerm_public_ip" "nat_gateway" {
   location            = azurerm_resource_group.this.location
   resource_group_name = azurerm_resource_group.this.name
   allocation_method   = "Static"
-  sku                 = "Standard"
 }
 
 resource "azurerm_nat_gateway" "this" {
   name                    = "${local.prefix}-nat-gw"
   location                = azurerm_resource_group.this.location
   resource_group_name     = azurerm_resource_group.this.name
-  sku_name                = "Standard"
-  idle_timeout_in_minutes = 10
 }
 
 resource "azurerm_nat_gateway_public_ip_association" "this" {
