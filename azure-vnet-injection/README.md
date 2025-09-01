@@ -1,5 +1,6 @@
 # Step 1. Install Azure CLI and Terraform
 
+- [Install Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 - [Install Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest)
 - [Install Terraform (AMD64)](https://developer.hashicorp.com/terraform/install)
     - **Avoid 386 on Windows**
