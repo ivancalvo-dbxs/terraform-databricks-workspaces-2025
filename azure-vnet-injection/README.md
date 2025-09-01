@@ -13,12 +13,22 @@
 az login
 ```
 
-# Step 3. Fill terraform.tfvars
+# Step 3. Clone the repo and fill terraform.tfvars
 
-Fill the *terraform.tfvars* file
+- Download the repo:
+```console
+git clone REPO_URL
+```
+
+- Open the folder with your favorite text editor
+
+- Replace the values
 
 # Step 4. Terraform commands
-Run the following commands:
+
+- cd into the *azure-vnet-injection* folder
+
+- Run the following commands:
 
 ```console
 terraform init
