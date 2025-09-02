@@ -2,8 +2,8 @@ module "aws_base" {
   providers = {
     databricks.mws = databricks.mws
   }
-  source                = "../modules/aws-databricks-base-infra"
-  prefix                = "databricks-${local.prefix}"
+  source                = "../modules/aws-workspace-base-infra"
+  prefix                = "databricks-${var.environment}"
   region                = var.region
   databricks_account_id = var.databricks_account_id
   cidr_block            = var.cidr_block
@@ -15,7 +15,7 @@ module "databricks_workspace" {
   providers = {
     databricks = databricks.mws
   }
-  source                 = "../modules/aws-databricks-workspace"
+  source                 = "../modules/databricks-workspace"
   prefix                 = "${var.environment}"
   region                 = var.region
   databricks_account_id  = var.databricks_account_id
@@ -33,7 +33,7 @@ module "databricks_workspace" {
 
 # remove this block if you want to just create a workspace.
 module "unity_catalog" {
-  source = "../modules/aws-databricks-unity-catalog"
+  source = "../modules/databricks-uc-metastore"
   providers = {
     databricks = databricks.mws
   }

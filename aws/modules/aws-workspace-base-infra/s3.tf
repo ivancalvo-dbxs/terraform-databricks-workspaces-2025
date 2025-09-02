@@ -1,8 +1,8 @@
 resource "aws_s3_bucket" "root_storage_bucket" {
-  bucket        = "${var.prefix}-uc-default"
+  bucket        = "${var.prefix}-catalog"
   force_destroy = true
   tags = merge(var.tags, {
-    Name = "${var.prefix}-uc-default"
+    Name = "${var.prefix}-catalog"
   })
 }
 

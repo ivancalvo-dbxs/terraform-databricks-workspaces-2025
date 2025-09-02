@@ -8,8 +8,6 @@ variable "prefix" {
   description = "(Required) Prefix for the resources deployed by this module"
 }
 
-
-
 variable "cidr_block" {
   type        = string
   description = "(Required) CIDR block for the VPC that will be used to create the Databricks workspace"
