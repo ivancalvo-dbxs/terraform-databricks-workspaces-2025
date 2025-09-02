@@ -4,7 +4,7 @@ resource "databricks_catalog" "catalog" {
   name         = var.environment
   comment      = "This catalog is managed by terraform"
   properties = {
-    purpose = "Catalog created from TF for ${var.environment} environment"
+    purpose = "${var.environment} catalog created from TF"
   }
 
   depends_on = [

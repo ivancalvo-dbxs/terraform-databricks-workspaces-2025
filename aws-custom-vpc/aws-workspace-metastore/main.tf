@@ -16,7 +16,7 @@ module "databricks_workspace" {
     databricks = databricks.mws
   }
   source                 = "../modules/aws-databricks-workspace"
-  prefix                 = "${local.prefix}"
+  prefix                 = "${var.environment}"
   region                 = var.region
   databricks_account_id  = var.databricks_account_id
   security_group_ids     = module.aws_base.security_group_ids
@@ -29,15 +29,15 @@ module "databricks_workspace" {
   depends_on = [
     module.aws_base
   ]
-
 }
 
+# remove this block if you want to just create a workspace.
 module "unity_catalog" {
   source = "../modules/aws-databricks-unity-catalog"
   providers = {
     databricks = databricks.mws
   }
-  prefix                   = local.prefix
+  prefix                   = "databricks-${local.prefix}"
   region                   = var.region
   databricks_account_id    = var.databricks_account_id
   aws_account_id           = local.aws_account_id
