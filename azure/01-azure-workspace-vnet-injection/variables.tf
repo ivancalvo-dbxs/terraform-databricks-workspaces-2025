@@ -9,12 +9,6 @@ variable "rglocation" {
   description = "Location of resource group to create"
 }
 
-variable "company_name" {
-  type        = string
-  default     = "greenapple"
-  description = "Company name prefix for the Azure resources"
-}
-
 variable "environment" {
   type        = string
   default     = "dev"

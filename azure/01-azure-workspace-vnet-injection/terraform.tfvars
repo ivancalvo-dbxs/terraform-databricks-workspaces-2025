@@ -3,7 +3,6 @@ subscription_id = "your_subscription_id"
 rglocation = "eastus"
 
 # Company info
-company_name = "my_awesome_company"
 environment = "dev"
 
 # Network: this template creates two subnets with mask of: VPC mask + 3

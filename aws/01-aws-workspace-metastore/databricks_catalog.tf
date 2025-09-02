@@ -13,16 +13,3 @@ resource "databricks_catalog" "catalog" {
   ]
   force_destroy = true
 }
-
-resource "databricks_grants" "unity_catalog_grants" {
-  provider = databricks.workspace
-  catalog  = databricks_catalog.catalog.name
-  grant {
-    principal  = local.workspace_users_group
-    privileges = ["USE_CATALOG", "USE_SCHEMA", "CREATE_SCHEMA", "CREATE_TABLE"]
-  }
-
-  depends_on = [
-    resource.databricks_mws_permission_assignment.add_admin_group
-  ]
-}
