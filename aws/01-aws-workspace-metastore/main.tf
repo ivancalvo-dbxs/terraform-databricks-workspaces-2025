@@ -3,7 +3,7 @@ module "aws_base" {
     databricks.mws = databricks.mws
   }
   source                = "../modules/aws-workspace-base-infra"
-  prefix                = "databricks-${var.environment}"
+  prefix                = "databricks-${local.prefix}"
   region                = var.region
   databricks_account_id = var.databricks_account_id
   cidr_block            = var.cidr_block
@@ -16,7 +16,7 @@ module "databricks_workspace" {
     databricks = databricks.mws
   }
   source                 = "../modules/databricks-workspace"
-  prefix                 = "${var.environment}"
+  prefix                 = "${local.prefix}"
   region                 = var.region
   databricks_account_id  = var.databricks_account_id
   security_group_ids     = module.aws_base.security_group_ids

@@ -9,8 +9,7 @@ resource "databricks_catalog" "catalog" {
 
   depends_on = [
     databricks_group_member.my_service_principal,
-    resource.databricks_mws_permission_assignment.add_admin_group,
-    databricks_group.users
+    resource.databricks_mws_permission_assignment.add_admin_group
   ]
   force_destroy = true
 }

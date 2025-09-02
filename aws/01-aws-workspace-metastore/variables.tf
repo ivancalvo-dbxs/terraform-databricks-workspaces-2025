@@ -10,11 +10,6 @@ variable "environment" {
   description = "(Required) Databricks workspace name to be used for deployment"
 }
 
-variable "company_name" {
-  type        = string
-  description = "(Required) Databricks workspace name to be used for deployment"
-}
-
 variable "cidr_block" {
   type        = string
   description = "(Required) CIDR block to be used to create the Databricks VPC"
@@ -28,11 +23,6 @@ variable "region" {
 variable "aws_profile" {
   type        = string
   description = "(Required) AWS cli profile to be used for authentication with AWS"
-}
-
-variable "my_username" {
-  type        = string
-  description = "(Required) Username in the form of an email to be added to the tags and be declared as owner of the assets"
 }
 
 variable "databricks_client_id" {
