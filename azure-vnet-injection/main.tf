@@ -1,8 +1,9 @@
 locals {
-  prefix   = "databricks-${var.company_name}-${var.environment}"
+  prefix   = "databricks-${var.environment}"
   
-  //NO SPECIAL CHARACTERS ON ADLS
+  // NO SPECIAL CHARACTERS ON ADLS
   adls_name = replace(join("", [var.company_name, var.environment, "uc"]), "/[^a-zA-Z0-9]/", "") 
+
   // tags that are propagated down to all resources
   tags = merge({
     Environment = var.environment
