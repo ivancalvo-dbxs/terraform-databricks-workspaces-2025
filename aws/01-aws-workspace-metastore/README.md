@@ -24,7 +24,7 @@
 - **If you want to use this template for just the workspace, remove the unity catalog metastore module call on main.tf (line 34 and below)**
 
 
-# Step 1. Install Azure CLI and Terraform
+# Step 1. Install GIT, AWS CLI and Terraform
 
 - [Install Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 - [Install AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
