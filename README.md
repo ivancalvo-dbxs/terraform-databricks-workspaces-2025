@@ -1,2 +1,3 @@
-# terraform-databricks-workspaces-2025
-Terraform templates to get started on Databricks
+# Terraform templates for Databricks Workspaces
+
+Avoid manual steps! Go Terraform
