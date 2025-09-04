@@ -16,5 +16,7 @@ locals {
 resource "random_string" "naming" {
   special = false
   upper   = false
+  lower = false
+  numeric = true
   length  = 6
 }

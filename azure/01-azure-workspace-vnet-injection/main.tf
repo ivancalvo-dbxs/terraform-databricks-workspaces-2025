@@ -20,5 +20,7 @@ resource "azurerm_resource_group" "this" {
 resource "random_string" "naming" {
   special = false
   upper   = false
+  lower = false
+  numeric = true
   length  = 6
 }

@@ -38,6 +38,7 @@ module "unity_catalog" {
     databricks = databricks.mws
   }
   prefix                   = "databricks-${local.prefix}"
+  metastore_name           = "metastore-${var.region}"
   region                   = var.region
   databricks_account_id    = var.databricks_account_id
   aws_account_id           = local.aws_account_id

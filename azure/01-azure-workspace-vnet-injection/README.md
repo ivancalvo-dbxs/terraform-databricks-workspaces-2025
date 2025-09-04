@@ -1,4 +1,4 @@
-# Step 1. Install Azure CLI and Terraform
+# Step 1. Install GIT, Azure CLI and Terraform
 
 - [Install Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 - [Install Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest)
@@ -26,7 +26,7 @@ git clone REPO_URL
 
 # Step 4. Terraform commands
 
-- cd into the *azure-vnet-injection* folder
+- cd into the *01-azure-workspace-vnet-injection* folder
 
 - Run the following commands:
 

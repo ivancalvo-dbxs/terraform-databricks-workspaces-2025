@@ -1,9 +1,9 @@
 # AWS authentication and region
-aws_profile = "your_aws_profile" // For AWS cli authentication
-region = "us-east-1" // AWS region where you want to deploy your resources
+aws_profile = "your_aws_profile"
+region = "us-east-1"
 
 # AWS resources
-cidr_block = "10.1.0.0/19" // CIDR block for the workspace VPC, will be divided in two equal sized subnets
+cidr_block = "10.1.0.0/19"
 environment = "dev"
 tags = {
   // dont add Environment: dev, it gets added in init.tf
@@ -12,9 +12,9 @@ tags = {
 }
 
 # Databrikcs authentication
-databricks_account_id       = "1234-4567-8910" // Databricks Account ID
-databricks_client_id        = "1234-4567-8910" // Databricks Service Principal Client ID
-databricks_client_secret    = "1234-4567-8910" // Databricks Service Principal Client Secret
+databricks_account_id       = "1234-4567-8910"
+databricks_client_id        = "1234-4567-8910"
+databricks_client_secret    = "1234-4567-8910"
 
-# Databricks resources
-unity_admin_group = "unity-admins" // Metastore Owner and Admin
+# Databricks group that is going to be created
+unity_admin_group = "unity-admins"
