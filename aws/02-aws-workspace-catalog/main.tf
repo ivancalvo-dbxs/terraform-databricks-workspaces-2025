@@ -31,18 +31,28 @@ module "databricks_workspace" {
   ]
 }
 
-# remove this block if you want to just create a workspace.
-module "unity_catalog" {
-  source = "../modules/databricks-uc-metastore"
+module "databricks_catalog" {
   providers = {
     databricks = databricks.mws
   }
-  prefix                   = "databricks-${local.prefix}"
-  metastore_name           = "metastore-${var.region}"
-  region                   = var.region
-  databricks_account_id    = var.databricks_account_id
-  aws_account_id           = local.aws_account_id
-  unity_metastore_owner    = databricks_group.unity_admin_group.display_name
-  databricks_workspace_ids = [module.databricks_workspace.databricks_workspace_id]
-  tags                     = local.tags
+  source                 = "../modules/databricks-catalog"
+  prefix                 = "${local.prefix}"
+
+  aws_profile            = var.aws_profile
+  region                 = var.region
+  databricks_account_id  = var.databricks_account_id
+  tags                   = local.tags
+  
+  depends_on = [
+    module.databricks_workspace
+  ]
+}
+
+resource "databricks_workspace_binding" "catalog_binding" {
+  securable_name = module.catalog.name
+  workspace_id   = module.databricks_workspace.this.workspace_id
+
+  depends_on = [
+    module.databricks_catalog.catalog.name
+  ]
 }
