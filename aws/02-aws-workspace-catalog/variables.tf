@@ -40,11 +40,6 @@ variable "databricks_account_id" {
   description = "(Required) Databricks Account ID"
 }
 
-variable "unity_admin_group" {
-  description = "(Required) Name of the admin group. This group will be set as the owner of the Unity Catalog metastore"
-  type        = string
-}
-
 variable "aws_access_services_role_name" {
   type        = string
   description = "(Optional) Name for the AWS Services role by this module"

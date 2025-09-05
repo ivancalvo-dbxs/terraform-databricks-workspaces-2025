@@ -15,6 +15,3 @@ tags = {
 databricks_account_id       = "1234-4567-8910"
 databricks_client_id        = "1234-4567-8910"
 databricks_client_secret    = "1234-4567-8910"
-
-# Databricks group that is going to be created
-unity_admin_group = "unity-admins"
