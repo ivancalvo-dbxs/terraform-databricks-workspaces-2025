@@ -50,9 +50,9 @@ module "databricks_catalog" {
 
 resource "databricks_workspace_binding" "catalog_binding" {
   securable_name = module.databricks_catalog.catalog.name
-  workspace_id   = module.databricks_workspace.this.workspace_id
+  workspace_id   = module.databricks_workspace.databricks_workspace_id
 
   depends_on = [
-    module.databricks_catalog.catalog.name
+    module.databricks_catalog.catalog
   ]
 }
