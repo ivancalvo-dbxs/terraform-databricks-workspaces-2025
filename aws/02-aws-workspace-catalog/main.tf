@@ -31,6 +31,19 @@ module "databricks_workspace" {
   ]
 }
 
+resource "databricks_metastore_assignment" "this" {
+  metastore_id = var.metastore_id
+  workspace_id = module.databricks_workspace.databricks_workspace_id
+  depends_on = [ module.databricks_workspace ]
+}
+
+resource "time_sleep" "wait_for_uc_enablement" {
+  depends_on = [
+    module.unity_catalog
+  ]
+  create_duration = "20s"
+}
+
 module "databricks_catalog" {
   providers = {
     databricks = databricks.mws
@@ -44,12 +57,13 @@ module "databricks_catalog" {
   tags                   = local.tags
   
   depends_on = [
-    module.databricks_workspace
+    # module.databricks_workspace
+    resource.time_sleep.wait_for_uc_enablement
   ]
 }
 
 resource "databricks_workspace_binding" "catalog_binding" {
-  securable_name = module.databricks_catalog.catalog.name
+  securable_name = module.databricks_catalog.catalog_name
   workspace_id   = module.databricks_workspace.databricks_workspace_id
 
   depends_on = [

@@ -15,3 +15,6 @@ tags = {
 databricks_account_id       = "1234-4567-8910"
 databricks_client_id        = "1234-4567-8910"
 databricks_client_secret    = "1234-4567-8910"
+
+# UC metastore ID
+metastore_id = "1234-4567-8910"

@@ -40,6 +40,11 @@ variable "databricks_account_id" {
   description = "(Required) Databricks Account ID"
 }
 
+variable "metastore_id" {
+  type        = string
+  description = "(Required) Databricks Account ID"
+}
+
 variable "aws_access_services_role_name" {
   type        = string
   description = "(Optional) Name for the AWS Services role by this module"
