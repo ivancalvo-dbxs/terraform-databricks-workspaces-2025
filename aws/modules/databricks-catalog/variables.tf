@@ -10,6 +10,10 @@ variable "prefix" {
   type    = string
 }
 
+variable "catalog_name" {
+  type    = string
+}
+
 variable "tags" {
 
 }

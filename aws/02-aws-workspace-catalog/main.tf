@@ -37,7 +37,7 @@ module "databricks_catalog" {
   }
   source                 = "../modules/databricks-catalog"
   prefix                 = "${local.prefix}"
-
+  catalog_name           = "${var.environment}"
   aws_profile            = var.aws_profile
   region                 = var.region
   databricks_account_id  = var.databricks_account_id
@@ -49,7 +49,7 @@ module "databricks_catalog" {
 }
 
 resource "databricks_workspace_binding" "catalog_binding" {
-  securable_name = module.catalog.name
+  securable_name = module.databricks_catalog.catalog.name
   workspace_id   = module.databricks_workspace.this.workspace_id
 
   depends_on = [
