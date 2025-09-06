@@ -2,10 +2,11 @@ resource "databricks_catalog" "catalog" {
   provider     = databricks.workspace
   metastore_id = module.unity_catalog.metastore_id
   name         = var.environment
-  comment      = "{var.environment} catalog created from Terraform"
+  comment      = "${var.environment} catalog created from Terraform"
   properties = {
     purpose = "${var.environment} catalog created from TF"
   }
+  owner = resource.databricks_group.unity_admin_group.name
 
   depends_on = [
     databricks_group_member.my_service_principal,

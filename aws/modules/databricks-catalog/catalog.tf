@@ -28,7 +28,7 @@ resource "databricks_external_location" "some" {
 
 resource "databricks_catalog" "catalog" {
   name    = var.catalog_name
-  comment = "${var.catalog_name} catalog creates from Terraform"
+  comment = "${var.catalog_name} catalog created from Terraform"
   //properties = {
   //  purpose = "testing"
   //}
