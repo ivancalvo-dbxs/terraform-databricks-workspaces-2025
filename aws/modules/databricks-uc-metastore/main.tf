@@ -25,3 +25,4 @@ resource "databricks_metastore_assignment" "default_metastore" {
   workspace_id         = var.databricks_workspace_ids[count.index]
   metastore_id         = databricks_metastore.this.id
 }
+

@@ -1,6 +1,6 @@
 # Create an S3 Bucket for Databricks Storage
 resource "aws_s3_bucket" "databricks_external_storage" {
-  bucket = "${var.prefix}-catalog"  # Make the name unique
+  bucket = "databricks-${var.prefix}-catalog"  # Make the name unique
   force_destroy = true
   tags = {
     Name        = "${var.prefix}-catalog"
