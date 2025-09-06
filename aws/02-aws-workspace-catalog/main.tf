@@ -48,8 +48,8 @@ module "databricks_catalog" {
     databricks = databricks.workspace
   }
   source                 = "../modules/databricks-catalog"
-  prefix                 = "${local.prefix}"
-  catalog_name           = "${var.environment}"
+  prefix                 = local.prefix
+  catalog_name           = var.environment
   aws_profile            = var.aws_profile
   region                 = var.region
   databricks_account_id  = var.databricks_account_id
