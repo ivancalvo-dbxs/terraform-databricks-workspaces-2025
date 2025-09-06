@@ -31,22 +31,21 @@ module "databricks_workspace" {
   ]
 }
 
+data "databricks_metastore" "this" {
+  provider = databricks.mws
+  region = var.region
+}
+
 resource "databricks_metastore_assignment" "this" {
-  metastore_id = var.metastore_id
+  provider = databricks.mws
+  metastore_id = data.databricks_metastore.this.id
   workspace_id = module.databricks_workspace.databricks_workspace_id
   depends_on = [ module.databricks_workspace ]
 }
 
-resource "time_sleep" "wait_for_uc_enablement" {
-  depends_on = [
-    module.unity_catalog
-  ]
-  create_duration = "20s"
-}
-
 module "databricks_catalog" {
   providers = {
-    databricks = databricks.mws
+    databricks = databricks.workspace
   }
   source                 = "../modules/databricks-catalog"
   prefix                 = "${local.prefix}"
@@ -58,7 +57,7 @@ module "databricks_catalog" {
   
   depends_on = [
     # module.databricks_workspace
-    resource.time_sleep.wait_for_uc_enablement
+    resource.time_sleep.wait_for_permission_apis
   ]
 }
 

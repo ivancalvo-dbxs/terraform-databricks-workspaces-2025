@@ -46,7 +46,7 @@ resource "aws_iam_role_policy" "external_data_access" {
       {
         Action = ["sts:AssumeRole"],
         Resource = [
-          "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${aws_iam_role.external_data_access.name}"
+          "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${resource.aws_iam_role.external_data_access.name}"
         ],
         Effect = "Allow"
       }

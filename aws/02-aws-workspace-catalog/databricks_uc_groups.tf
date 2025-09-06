@@ -15,16 +15,27 @@ resource "databricks_group" "workspace_users_group" {
   display_name = "${local.prefix}-users"
 }
 
+resource "time_sleep" "wait_for_permission_apis" {
+  depends_on = [
+    resource.databricks_metastore_assignment.this
+  ]
+  create_duration = "20s"
+}
+
 resource "databricks_mws_permission_assignment" "add_admin_group" {
   provider     = databricks.mws
   workspace_id = module.databricks_workspace.databricks_workspace_id
   principal_id = resource.databricks_group.workspace_admin_group.id
   permissions  = ["ADMIN"]
+
+  depends_on = [ resource.time_sleep.wait_for_permission_apis ]
 }
 
 resource "databricks_mws_permission_assignment" "add_users_group" {
   provider     = databricks.mws
   workspace_id = module.databricks_workspace.databricks_workspace_id
-  principal_id = resource.databricks_group.workspace_admin_group.id
-  permissions  = ["USERS"]
+  principal_id = resource.databricks_group.workspace_users_group.id
+  permissions  = ["USER"]
+
+  depends_on = [ resource.time_sleep.wait_for_permission_apis ]
 }
