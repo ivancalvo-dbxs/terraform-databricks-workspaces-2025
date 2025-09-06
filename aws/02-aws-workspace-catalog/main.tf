@@ -60,12 +60,3 @@ module "databricks_catalog" {
     resource.time_sleep.wait_for_permission_apis
   ]
 }
-
-resource "databricks_workspace_binding" "catalog_binding" {
-  securable_name = module.databricks_catalog.catalog_name
-  workspace_id   = module.databricks_workspace.databricks_workspace_id
-
-  depends_on = [
-    module.databricks_catalog.catalog
-  ]
-}
