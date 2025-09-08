@@ -14,11 +14,6 @@ variable "region" {
   description = "(Required) AWS region where the assets will be deployed"
 }
 
-variable "unity_metastore_owner" {
-  description = "(Required) Name of the principal that will be the owner of the Metastore"
-  type        = string
-}
-
 variable "databricks_workspace_ids" {
   description = <<EOT
   List of Databricks workspace IDs to be enabled with Unity Catalog.
