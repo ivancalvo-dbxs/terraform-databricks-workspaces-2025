@@ -60,12 +60,14 @@ module "unity_catalog" {
   metastore_name           = "metastore-${var.region}"
   region                   = var.region
   databricks_account_id    = var.databricks_account_id
+  unity_metastore_owner    = var.databricks_client_id
   databricks_workspace_ids = [module.databricks_workspace.databricks_workspace_id]
 
   depends_on = [
     resource.databricks_group_member.my_service_principal
   ]
 }
+
 
 // --- 3. CREATES UC CATALOG AND ITS RESPECTIVE S3 BUCKET
 

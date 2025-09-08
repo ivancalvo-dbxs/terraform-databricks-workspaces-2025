@@ -1,6 +1,7 @@
 resource "databricks_metastore" "this" {
   name          = var.metastore_name
   region        = var.region
+  owner         = var.unity_metastore_owner
   force_destroy = true
 }
 
