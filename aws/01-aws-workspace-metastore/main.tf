@@ -1,3 +1,5 @@
+// --- 1. AWS INFRA
+
 module "aws_base" {
   providers = {
     databricks.mws = databricks.mws
@@ -11,6 +13,7 @@ module "aws_base" {
   roles_to_assume       = [local.aws_access_services_role_arn]
 }
 
+// --- 2. WORKSPACE
 module "databricks_workspace" {
   providers = {
     databricks = databricks.mws
@@ -31,6 +34,24 @@ module "databricks_workspace" {
   ]
 }
 
+// --- 3. UNITY CATALOG: ADMIN GROUP AND METASTORE
+
+data "databricks_service_principal" "admin_service_principal" {
+  provider       = databricks.mws
+  application_id = var.databricks_client_id
+}
+
+resource "databricks_group" "unity_admin_group" {
+  provider     = databricks.mws
+  display_name = local.unity_admin_group
+}
+
+resource "databricks_group_member" "my_service_principal" {
+  provider  = databricks.mws
+  group_id  = databricks_group.unity_admin_group.id
+  member_id = data.databricks_service_principal.admin_service_principal.id
+}
+
 module "unity_catalog" {
   source = "../modules/databricks-uc-metastore"
   providers = {
@@ -41,7 +62,14 @@ module "unity_catalog" {
   databricks_account_id    = var.databricks_account_id
   unity_metastore_owner    = databricks_group.unity_admin_group.display_name
   databricks_workspace_ids = [module.databricks_workspace.databricks_workspace_id]
+
+  depends_on = [
+    resource.databricks_group.unity_admin_group
+  ]
 }
+
+
+// --- 3. CREATES UC CATALOG AND ITS RESPECTIVE S3 BUCKET
 
 module "databricks_catalog" {
   providers = {
@@ -56,6 +84,6 @@ module "databricks_catalog" {
   tags                   = local.tags
   
   depends_on = [
-    resource.databricks_group_member.my_service_principal
+    resource.time_sleep.wait_for_groups
   ]
 }
