@@ -6,11 +6,11 @@ resource "databricks_catalog" "catalog" {
   properties = {
     purpose = "${var.environment} catalog created from TF"
   }
-  owner = resource.databricks_group.unity_admin_group.name
+  owner = databricks_group.unity_admin_group.display_name
 
   depends_on = [
     databricks_group_member.my_service_principal,
-    resource.databricks_mws_permission_assignment.add_unity_admin_group
+    databricks_mws_permission_assignment.add_unity_admin_group
   ]
   force_destroy = true
 }

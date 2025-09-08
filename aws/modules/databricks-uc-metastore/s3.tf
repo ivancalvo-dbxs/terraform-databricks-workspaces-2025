@@ -7,10 +7,10 @@ resource "random_string" "s3_bucket_id" {
 }
 
 resource "aws_s3_bucket" "metastore" {
-  bucket        = "$databricks-metastore-${random_string.naming.s3_bucket_id}"
+  bucket        = "databricks-metastore-${random_string.s3_bucket_id.result}"
   force_destroy = true
   tags = merge(var.tags, {
-    Name = "$databricks-metastore-${random_string.naming.s3_bucket_id}"
+    Name = "databricks-metastore-${random_string.s3_bucket_id.result}"
   })
 }
 
