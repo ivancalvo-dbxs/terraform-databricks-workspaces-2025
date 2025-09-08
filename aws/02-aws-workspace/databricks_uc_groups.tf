@@ -24,7 +24,7 @@ resource "databricks_mws_permission_assignment" "add_ws_admins" {
   principal_id = resource.databricks_group.workspace_admin_group.id
   permissions  = ["ADMIN"]
   depends_on = [
-    resource.databricks_mws_permission_assignment.workspace_users_group
+    resource.databricks_group.workspace_users_group
   ]
 }
 
