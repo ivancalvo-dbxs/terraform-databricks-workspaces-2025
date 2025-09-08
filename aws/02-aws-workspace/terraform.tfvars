@@ -4,7 +4,7 @@ region = "us-east-1"
 
 # AWS resources
 cidr_block = "10.1.0.0/19"
-environment = "staging"
+environment = "dev"
 tags = {
   // dont add Environment: dev, it gets added in init.tf
   // dont add Vendor: Databricks environment: dev, it gets added in init.tf

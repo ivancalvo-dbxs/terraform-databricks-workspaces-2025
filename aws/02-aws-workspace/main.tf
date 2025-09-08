@@ -1,3 +1,5 @@
+// --- 1. AWS INFRA
+
 module "aws_base" {
   providers = {
     databricks.mws = databricks.mws
@@ -11,6 +13,7 @@ module "aws_base" {
   roles_to_assume       = [local.aws_access_services_role_arn]
 }
 
+// --- 2. WORKSPACE
 module "databricks_workspace" {
   providers = {
     databricks = databricks.mws
@@ -31,6 +34,7 @@ module "databricks_workspace" {
   ]
 }
 
+// 3. GET METASTORE BY REGION AND ASSIGN
 data "databricks_metastore" "this" {
   provider = databricks.mws
   region = var.region
@@ -42,6 +46,8 @@ resource "databricks_metastore_assignment" "this" {
   workspace_id = module.databricks_workspace.databricks_workspace_id
   depends_on = [ module.databricks_workspace ]
 }
+
+// --- 3. CREATES UC CATALOG AND ITS RESPECTIVE S3 BUCKET
 
 module "databricks_catalog" {
   providers = {
@@ -56,7 +62,6 @@ module "databricks_catalog" {
   tags                   = local.tags
   
   depends_on = [
-    # module.databricks_workspace
-    resource.time_sleep.wait_for_permission_apis
+    resource.time_sleep.wait_for_groups
   ]
 }
