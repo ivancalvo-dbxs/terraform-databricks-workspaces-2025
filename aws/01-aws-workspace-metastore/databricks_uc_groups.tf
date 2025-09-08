@@ -3,17 +3,19 @@ resource "time_sleep" "wait_for_permission_apis" {
   depends_on = [
     module.unity_catalog
   ]
-  create_duration = "20s"
+  create_duration = "10s"
 }
 
 resource "databricks_group" "workspace_admin_group" {
   provider     = databricks.mws
   display_name = "${local.prefix}-admins"
+  depends_on = [ resource.time_sleep.wait_for_permission_apis ]
 }
 
 resource "databricks_group" "workspace_users_group" {
   provider     = databricks.mws
   display_name = "${local.prefix}-users"
+  depends_on = [ resource.databricks_group.workspace_admin_group ]
 }
 
 resource "databricks_mws_permission_assignment" "add_unity_admin_group" {
@@ -22,7 +24,7 @@ resource "databricks_mws_permission_assignment" "add_unity_admin_group" {
   principal_id = resource.databricks_group.unity_admin_group.id
   permissions  = ["ADMIN"]
   depends_on = [
-    resource.time_sleep.wait_for_permission_apis
+    resource.databricks_group.workspace_users_group
   ]
 }
 
@@ -32,7 +34,7 @@ resource "databricks_mws_permission_assignment" "add_ws_admins" {
   principal_id = resource.databricks_group.workspace_admin_group.id
   permissions  = ["ADMIN"]
   depends_on = [
-    resource.time_sleep.wait_for_permission_apis
+    resource.databricks_mws_permission_assignment.add_unity_admin_group
   ]
 }
 
@@ -42,13 +44,13 @@ resource "databricks_mws_permission_assignment" "add_ws_users" {
   principal_id = resource.databricks_group.workspace_users_group.id
   permissions  = ["USER"]
   depends_on = [
-    resource.time_sleep.wait_for_permission_apis
+    resource.databricks_mws_permission_assignment.add_ws_admins
   ]
 }
 
 resource "time_sleep" "wait_for_groups" {
   depends_on = [
-    module.unity_catalog
+    resource.databricks_mws_permission_assignment.add_ws_users
   ]
-  create_duration = "20s"
+  create_duration = "10s"
 }
