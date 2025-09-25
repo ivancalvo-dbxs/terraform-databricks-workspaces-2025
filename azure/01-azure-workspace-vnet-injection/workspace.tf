@@ -1,5 +1,5 @@
 resource "azurerm_databricks_workspace" "example" {
-  name                = "${var.environment}-${random_string.naming.result}-ws"
+  name                = "${var.environment}-${random_string.naming.result}"
   resource_group_name = azurerm_resource_group.this.name
   location            = azurerm_resource_group.this.location
   sku                 = "premium"
