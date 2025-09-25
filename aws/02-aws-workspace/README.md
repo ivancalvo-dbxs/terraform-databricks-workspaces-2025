@@ -1,4 +1,16 @@
-# Considerations
+# Youtube Tutorial
+
+[How to create a Databricks AWS workspace with a custom-VPC using Terraform
+](https://www.youtube.com/watch?v=t5vyL1RKXUE)
+
+# After deployment setup required!
+
+* There are post-deployment manual configurations.
+* There are post-deployment manual configurations.
+* **Don't skip the last section of the README.md**.
+* **Don't skip the last section of the README.md**.
+
+# What this templates creates?
 
 - This template is great for your initial AWS deployment, it creates:
     - AWS resources:
@@ -10,18 +22,13 @@
         - 1x S3 bucket
         - 2x IAM roles
             - 1x cross-account role.
-            - 1x s3-uc access role.
+            - 1x S3-uc access role.
     - Databricks:
         - 1x workspace
-            - uses most of the previous AWS resources.
-        - 1x metastore
-            - uses 1x S3 bucket and 1x IAM role
-        - 2x Databricks groups.
-            - UC admins
+        - 1x catalog
+        - 2x Databricks groups
             - Workspace users.
-        
-        workspace and metastore.
-- **If you want to use this template for just the workspace, remove the unity catalog metastore module call on main.tf (line 34 and below)**
+            - Workspace admins.
 
 
 # Step 1. Install GIT, AWS CLI and Terraform
@@ -60,6 +67,9 @@ Default output format [None]: json
 # Step 3. Clone the repo
 
 ## Download the repo
+
+Clone it in your favorite computer directory.
+
 - Copy the repo HTTPS URL
     - On the main repo page, click on the green code button and copy it.
 
@@ -68,21 +78,24 @@ Default output format [None]: json
 git clone REPO_URL
 ```
 
-## 2. CD into the repo
-- cd into the *aws-workspace-metastore* folder
+## Replace the values on **terraform.tfvars** file
+
+- Open this folder (02-aws-workspace) with Visual Studio Code, Sublime text or your favorite text editor.
+- Replace the values on *terraform.tfvars* file.
+
+
+# Step 4. Terraform time
+
+## CD into the repo
+
+cd into the **01-aws-workspace-metastore** folder
 ```console
-cd /path/to/repo/aws-workspace-metastore
+cd /path/to/repo/02-aws-workspace
 ```
 
-# Step 4. Open the repo folder with a text editor
+## Terraform commands
 
-## 1. Replace the values on *terraform.tfvars* file
-- Use Visual Studio Code or Sublime text.
-- Replace the values
-
-# Step 5. Terraform commands
-
-- Once you *cd* into the cd into the *aws-workspace-metastore* folder, run the following commands:
+- After the previous step, run:
 
 ```console
 terraform init
@@ -96,4 +109,31 @@ terraform plan
 terraform apply
 ```
 
-# Step 5. Enjoy your Databricks Workspace
+# Step 5. Before using the Workspace
+
+- At this point in time, the Service Principal is the owner of the deployed assets.
+- Pass the ownership to groups.
+
+## On the Account Console:
+
+### Add users to the group.
+    - Go to User Management on the left panel.
+    - Click on Groups tab.
+    - Add users to the new groups: dev-users and dev-admins in case you leave the environment value as dev.
+    - Users are now allow to access the workspace.
+
+## On the Workspace:
+
+### Catalog:
+    - Go to Catalog on the left panel.
+    - In the middle panel, click on the catalog. (dev catalog if you leave it default).
+    - Edit the Owner.
+    - Replace the Service Principal with the unity-admins group.
+
+### Storage Credential and External Locations:
+    - Go to Catalog on the left panel.
+    - Click on External Data.
+    - Go to the Credential tab.
+    - Edit the owner of all the credentials.
+    - Replace the Service Principal with the unity-admins group.
+    - Repeat the same on the External Locations tab.
