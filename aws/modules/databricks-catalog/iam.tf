@@ -66,7 +66,8 @@ data "aws_iam_policy_document" "updated_trust_policy" {
     condition {
       test     = "StringEquals"
       variable = "sts:ExternalId"
-      values   = [var.databricks_account_id]
+      # IF THIS FAILES, CHANGE THE NEXT LINE TO "values = [var.databricks_account_id]"
+      values   = [databricks_storage_credential.external.id]
     }
   }      
 }
